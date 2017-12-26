@@ -13,6 +13,11 @@ Requires `sound_play`, which is included in `audio_common`.  Here's how to insta
 sudo apt-get install ros-indigo-audio-common
 ```
 
+Then, clone this repo into your ROS workspace `src` directory. From your ROS workspace root, do:
+
+```
+catkin_make
+```
 
 ## Running
 
@@ -22,10 +27,10 @@ Start sound_play node:
 rosrun sound_play soundplay_node.py
 ```
 
-Then run this script, which will start the `beeper` node.
+Then start the `beeper` node:
 
 ```
-python main.py
+rosrun beeper beeper.py
 ```
 
 ## Configuration
