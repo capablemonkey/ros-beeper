@@ -22,6 +22,7 @@ class Beeper:
     def __init__(self, beep_sound_file, interval_seconds):
         self.sound_client = SoundClient()
         self.beep_sound = self.sound_client.waveSound(beep_sound_file)
+
         self.interval_seconds = rospy.Duration(interval_seconds)
         self.last_beep = rospy.Time.now() - self.interval_seconds
 
