@@ -1,8 +1,6 @@
 # beeper
 
-Listens for velocity commands and publishes to sound_play topic to play beeping sounds to indicate motion.
-
-Rate limits.
+Listens for velocity commands and plays beeping sounds to indicate motion.  Has a configurable interval, so that a sound is played no more often than every x seconds.
 
 TODO: generalize to any other topic
 TODO: allow a random sound to be played from a set of sounds
