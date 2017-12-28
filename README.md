@@ -2,8 +2,11 @@
 
 Listens for velocity commands and plays beeping sounds to indicate motion.  Has a configurable interval, so that a sound is played no more often than every x seconds.
 
-TODO: generalize to any other topic
-TODO: allow a random sound to be played from a set of sounds
+TODO:
+- generalize to other topics
+- support multiple sounds
+- play a sound at random
+- configurable log level
 
 ## Install
 
@@ -35,4 +38,9 @@ rosrun beeper beeper.py
 
 ## Configuration
 
-You can specify the sound file (WAV or OGG) and the interval between beeps (in seconds) by changing the constants at the top of `main.py`.  TODO: figure out how to use rosparam for this
+You can specify the sound file (WAV or OGG) and the interval between beeps (in seconds) by setting the following parameters via `rosparam`:
+
+```
+rosparam set beeper/sound_file /absolute/path/to/file.wav
+rosparam set beeper/interval 5
+```

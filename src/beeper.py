@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 import rospy
+from os.path import join, abspath, dirname, exists
 from std_msgs.msg import String
 
 from geometry_msgs.msg import Twist
 from sound_play.libsoundplay import SoundClient
 
-BEEP_SOUND_FILE = "/home/gordon/ros/beeper/bb8 - beep beep.wav"
-BEEP_INTERVAL_SECONDS = 2
+DEFAULT_BEEP_SOUND_FILE = join(dirname(abspath(__file__)), '../sounds/sample.wav')
 
 
 def absolute_sum(vector3):
@@ -20,6 +20,9 @@ def zero_velocity(twist_data):
 
 class Beeper:
     def __init__(self, beep_sound_file, interval_seconds):
+        if not exists(beep_sound_file):
+            raise ValueError("Beep sound file doesn't exist!")
+
         self.sound_client = SoundClient()
         self.beep_sound = self.sound_client.waveSound(beep_sound_file)
 
@@ -46,10 +49,12 @@ class Beeper:
 
 def main():
     rospy.init_node('beeper')
+    beep_sound_file = rospy.get_param("beeper/sound_file", DEFAULT_BEEP_SOUND_FILE)
+    beep_interval_seconds = rospy.get_param("beeper/interval", 2)
 
     # Listen to cmd_vel messages and pass Beeper's listener as callback
-    beeper = Beeper(BEEP_SOUND_FILE, BEEP_INTERVAL_SECONDS)
-    rospy.Subscriber("cmd_vel", Twist, beeper.listen)
+    beeper = Beeper(beep_sound_file, beep_interval_seconds)
+    rospy.Subscriber("/cmd_vel", Twist, beeper.listen)
 
     rospy.loginfo("beeper is now listening for nonzero velocity on /cmd_vel")
     rospy.spin()
